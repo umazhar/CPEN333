@@ -2,6 +2,8 @@
 # student number: 20333308
 
 # A command-line Tic-Tac-Toe game 
+from curses.ascii import isdigit
+from lib2to3.pgen2.token import GREATER
 import random
 
 board = [' '] * 9 # A list of 9 strings, one for each cell, 
@@ -19,7 +21,13 @@ def init() -> None:
 
 def printBoard() -> None:
     """ prints the board on the screen based on the values in the board list """
-    pass #To Implement
+    print("\n")
+    print("  ",board[0],"|",board[1],"|",board[2],"   0 | 1 | 2")
+    print("   --+---+--    --+---+--")
+    print("  ",board[3],"|",board[4],"|",board[5],"   3 | 4 | 5")
+    print("   --+---+--    --+---+--")
+    print("  ",board[6],"|",board[7],"|",board[8],"   6 | 7 | 8")
+    print("\n")
 
 
 def playerNextMove() -> None:
@@ -27,7 +35,23 @@ def playerNextMove() -> None:
         and prints the info and the updated board;
         error checks that the input is a valid cell number 
     """
-    pass #To Implement
+    
+    playerInput = input("Next move for X (State a valid cell num):")
+    
+    if not (playerInput.isdigit()):
+        print("Must be an integer")
+        return
+    elif (int(playerInput) >= 0) and (int(playerInput) <= 8):
+        if (int(playerInput) in played):
+            print("Must enter a valid cell number")
+            return
+        played.add(int(playerInput)) #add played integer to set so it can't be played again
+        board[int(playerInput)] = 'X'
+        printBoard();
+        return
+    else:
+        print("Must enter a valid cell number")
+        return
 
 def computerNextMove() -> None:
     """ Computer randomly chooses a valid cell, 
