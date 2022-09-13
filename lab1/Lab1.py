@@ -12,7 +12,7 @@ played = set()    # A set to keep track of the played cells
 
 def init() -> None:
     """ prints the banner messages 
-        and prints the intial board on the screen
+        and prints the int0ial board on the screen
     """
     print("Welcome to Tic-Tac-Toe!")
     print("You play X (first move) and computer plays O.")
@@ -35,34 +35,67 @@ def playerNextMove() -> None:
         and prints the info and the updated board;
         error checks that the input is a valid cell number 
     """
-    
-    playerInput = input("Next move for X (State a valid cell num):")
-    
-    if not (playerInput.isdigit()):
-        print("Must be an integer")
-        return
-    elif (int(playerInput) >= 0) and (int(playerInput) <= 8):
-        if (int(playerInput) in played):
+
+    while True: 
+        playerInput = input("Next move for X (State a valid cell num):")
+        if not (playerInput.isdigit()):
+            print("Must be an integer")
+            continue
+        elif (int(playerInput) >= 0) and (int(playerInput) <= 8):
+            if (int(playerInput) in played):
+                print("Must enter a valid cell number")
+                continue
+            else:
+                print("You chose cell ", playerInput)
+                played.add(int(playerInput)) #add played integer to set so it can't be played again
+                board[int(playerInput)] = 'X'
+                printBoard();
+                return
+        else:
             print("Must enter a valid cell number")
-            return
-        played.add(int(playerInput)) #add played integer to set so it can't be played again
-        board[int(playerInput)] = 'X'
-        printBoard();
-        return
-    else:
-        print("Must enter a valid cell number")
-        return
+            continue
+            
 
 def computerNextMove() -> None:
-    """ Computer randomly chooses a valid cell, 
-        and prints the info and the updated board 
-    """
-    pass #To Implement
+    moveSuccess = False
+    while moveSuccess == False:
+        computerGuess = random.randint(0,8)
+        if computerGuess in played:
+            continue
+        else:
+            moveSuccess = True
+            played.add(computerGuess)
+            board[computerGuess] = "O"
+            print("Computer chose cell ", computerGuess)
+            printBoard()
 
 def hasWon(who: str) -> bool:
     """ returns True if who (being passed 'X' or 'O') has won, False otherwise """
-    pass #To Implemen
+    r1 = {board[0:2]}
+    r2 = {board[3:5]}
+    r3 = {board[6:8]}
+    c1 = {board[0], board[3], board[6]}
+    c2 = {board[1], board[4], board[7]}
+    c3 = {board[2], board[5], board[8]}
+    d1 = {board[0], board[4], board[8]}
+    d2 = {board[2], board[4], board[6]}
 
+    boardArray = [
+        {len(set(r1)), board[0]}, 
+        {len(set(r2)), board[3]}, 
+        {len(set(r3)), board[6]}, 
+        {len(set(c1)), board[0]}, 
+        {len(set(c2)), board[1]}, 
+        {len(set(c3)), board[2]}, 
+        {len(set(d1)), board[0]}, 
+        {len(set(d2)), board[2]}
+        ]
+        
+    for x in boardArray:
+        if x[0] == 1:
+            if x[1] == str:
+                return True
+    return False
 def terminate(who: str) -> bool:
     """ returns True if who (being passed 'X' or 'O') has won or if it's a draw, False otherwise;
         it also prints the final messages:
@@ -70,7 +103,9 @@ def terminate(who: str) -> bool:
                 "You lost! Thanks for playing." or 
                 "A draw! Thanks for playing."  
     """
-    pass #To Implement
+    if hasWon(str):
+        return True
+        
 
 if __name__ == "__main__":
     # Use as is. 
