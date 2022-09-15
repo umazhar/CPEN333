@@ -38,15 +38,15 @@ def playerNextMove() -> None:
 
     while True: 
         playerInput = input("Next move for X (State a valid cell num):")
-        if not (playerInput.isdigit()):
-            print("Must be an integer")
+        if not (playerInput.isdigit()): #checking if input is a digit
+            print("Must be an integer") 
             continue
-        elif (int(playerInput) >= 0) and (int(playerInput) <= 8):
+        elif (int(playerInput) >= 0) and (int(playerInput) <= 8): #checking if input is a cell on the board
             if (int(playerInput) in played):
                 print("Must enter a valid cell number")
                 continue
-            else:
-                print("You chose cell ", playerInput)
+            else: #valid 
+                print("You chose cell ", playerInput) 
                 played.add(int(playerInput)) #add played integer to set so it can't be played again
                 board[int(playerInput)] = 'X'
                 printBoard();
@@ -57,45 +57,32 @@ def playerNextMove() -> None:
             
 
 def computerNextMove() -> None:
-    moveSuccess = False
+    moveSuccess = False #move is successful if it is valid, invalid move at first
     while moveSuccess == False:
-        computerGuess = random.randint(0,8)
-        if computerGuess in played:
-            continue
+        computerGuess = random.randint(0,8) #pick random place on board to place 
+        if computerGuess in played: #if it already is on the board, repeat
+            continue    
         else:
             moveSuccess = True
-            played.add(computerGuess)
-            board[computerGuess] = "O"
+            played.add(computerGuess)   #add cell to set as taken
+            board[computerGuess] = "O"  
             print("Computer chose cell ", computerGuess)
             printBoard()
 
 def hasWon(who: str) -> bool:
     """ returns True if who (being passed 'X' or 'O') has won, False otherwise """
-    r1 = {board[0:2]}
-    r2 = {board[3:5]}
-    r3 = {board[6:8]}
-    c1 = {board[0], board[3], board[6]}
-    c2 = {board[1], board[4], board[7]}
-    c3 = {board[2], board[5], board[8]}
-    d1 = {board[0], board[4], board[8]}
-    d2 = {board[2], board[4], board[6]}
-
-    boardArray = [
-        {len(set(r1)), board[0]}, 
-        {len(set(r2)), board[3]}, 
-        {len(set(r3)), board[6]}, 
-        {len(set(c1)), board[0]}, 
-        {len(set(c2)), board[1]}, 
-        {len(set(c3)), board[2]}, 
-        {len(set(d1)), board[0]}, 
-        {len(set(d2)), board[2]}
-        ]
-        
-    for x in boardArray:
-        if x[0] == 1:
-            if x[1] == str:
-                return True
+    #checking to see if every winning combo is equal to the who being passed in
+    if (board[0] == board[1] == board[2] == who or 
+        board[3] == board[4] == board[5] == who or
+        board[6] == board[7] == board[8] == who or 
+        board[0] == board[3] == board[6] == who or 
+        board[1] == board[4] == board[7] == who or
+        board[2] == board[5] == board[8] == who or
+        board[0] == board[4] == board[8] == who or
+        board[2] == board[4] == board[6] == who):
+        return True
     return False
+    
 def terminate(who: str) -> bool:
     """ returns True if who (being passed 'X' or 'O') has won or if it's a draw, False otherwise;
         it also prints the final messages:
@@ -103,10 +90,24 @@ def terminate(who: str) -> bool:
                 "You lost! Thanks for playing." or 
                 "A draw! Thanks for playing."  
     """
-    if hasWon(str):
-        return True
+    allElements = set()
+    for x in range(0,9):
+        allElements.add(x)
         
+    if allElements.issubset(played):
+        print("A draw! Thanks for playing")
+        return True
 
+    if hasWon(who):
+        if who == 'O':
+            print('You lost! Thanks for playing.')
+        elif who == 'X':
+            print('You won! Thanks for playing.')
+        return True
+    
+    return False
+
+    
 if __name__ == "__main__":
     # Use as is. 
     init()
