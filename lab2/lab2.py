@@ -1,6 +1,6 @@
 #Lab 2
-#student name:
-#student number:
+#student name: Umair Mazhar
+#student number: 20333308
 
 from tkinter import *
 #do not import any more modules
@@ -40,25 +40,33 @@ class Rational:
         """adds 'this' rational to secondRational
            returns the result as a rational number (type Rational)
         """     
-        # to implement
-    
+        newNumerator = (self.numerator*secondRational.denominator)+(secondRational.numerator*self.denominator)
+        newDenominator = self.denominator*secondRational.denominator
+        return Rational(newNumerator, newDenominator)
+
     def subtract(self, secondRational):
-        """subtracts secondRational from 'this' rational to 
+        """subtracts secondRationa from 'this' rational to 
            returns the result as a rational number (type Rational)
         """ 
-        # to implement
+        newNumerator = (self.numerator*secondRational.denominator)-(secondRational.numerator*self.denominator)
+        newDenominator = self.denominator*secondRational.denominator
+        return Rational(newNumerator, newDenominator)
 
     def multiply(self, secondRational):
         """multiplies 'this' rational to secondRational
            returns the result as a rational number (type Rational)
         """ 
-        # to implement
+        #creating new Rational object to return with new numerator and denominator
+        return Rational(self.numerator * secondRational.numerator, self.denominator * secondRational.denominator)
+
 
     def divide(self, secondRational):
         """divides 'this' rational by secondRational
            returns the result as a rational number (type Rational)
         """ 
-        # to implement
+        #creating new Rational object to return with new numerator and denominator
+        return Rational(self.numerator * secondRational.denominator, self.denominator * secondRational.numerator)
+
 
     def toString(self):
         """ returns a string representation of 'this' rational
@@ -67,6 +75,12 @@ class Rational:
             if denominator is 0, it just returns "NaN" (not a number)
         """ 
         # to implement
+        if self.denominator == 0:
+            return "NaN"
+        elif self.denominator == 1:
+            return str(self.numerator)
+        else:
+            return str(self.numerator) + "/" + str(self.denominator)
 
 class GUI:
     """ this class implements the GUI for our program
