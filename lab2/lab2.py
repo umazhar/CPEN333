@@ -74,13 +74,13 @@ class Rational:
             if 'this' rational is an integer, it must not show any denominator 
             if denominator is 0, it just returns "NaN" (not a number)
         """ 
-        # to implement
-        if self.denominator == 0:
+
+        if self.denominator or self.numerator == 0: #if numerator or denominator are 0, return NaN (divide by 0)
             return "NaN"
-        elif self.denominator == 1:
+        elif self.denominator == 1: #simplifying X/1 to just X
             return str(self.numerator)
         else:
-            return str(self.numerator) + "/" + str(self.denominator)
+            return str(self.numerator) + "/" + str(self.denominator) #outputting number as string
 
 class GUI:
     """ this class implements the GUI for our program
