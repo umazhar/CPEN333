@@ -55,51 +55,13 @@ def checkSubgrid(puzzle: list, subgrid: int):
     """
     values = set()
 
-    if (subgrid == 0):
-        for i in range(0,3):
-            values.add(puzzle[0][i])
-            values.add(puzzle[1][i])
-            values.add(puzzle[2][i])
-    elif (subgrid == 1):
-        for i in range(3,6):
-            values.add(puzzle[0][i])
-            values.add(puzzle[1][i])
-            values.add(puzzle[2][i])
-    elif (subgrid == 2):
-        for i in range(6,9):
-            values.add(puzzle[0][i])
-            values.add(puzzle[1][i])
-            values.add(puzzle[2][i])
-    elif (subgrid == 3):
-        for i in range(0,3):
-            values.add(puzzle[3][i])
-            values.add(puzzle[4][i])
-            values.add(puzzle[5][i])
-    elif (subgrid == 4):
-        for i in range(3,6):
-            values.add(puzzle[3][i])
-            values.add(puzzle[4][i])
-            values.add(puzzle[5][i])
-    elif (subgrid == 5):
-        for i in range(6,9):
-            values.add(puzzle[3][i])
-            values.add(puzzle[4][i])
-            values.add(puzzle[5][i])
-    elif (subgrid == 6):
-        for i in range(0,3):
-            values.add(puzzle[6][i])
-            values.add(puzzle[7][i])
-            values.add(puzzle[8][i])
-    elif (subgrid == 7):
-        for i in range(3,6):
-            values.add(puzzle[6][i])
-            values.add(puzzle[7][i])
-            values.add(puzzle[8][i])
-    elif (subgrid == 8):
-        for i in range(6,9):
-            values.add(puzzle[6][i])
-            values.add(puzzle[7][i])
-            values.add(puzzle[8][i])
+    row_index = (subgrid//3)*3
+    col_index = (subgrid%3)*3
+
+    for i in range(row_index,row_index+3):
+        for j in range(col_index, col_index+3):
+            values.add(puzzle[i][j])
+    
     if (len(values) != 9):
         print("Subgrid "+str(subgrid)+" not valid")
     else:
@@ -111,11 +73,11 @@ if __name__ == "__main__":
              [5, 1, 9, 7, 2, 8, 6, 3, 4],
              [8, 3, 7, 6, 1, 4, 2, 9, 5],
              [1, 4, 3, 8, 6, 5, 7, 2, 9],
-             [9, 5, 8, 2, 4, 7, 3, 6, 1],
+             [9, 5, 8, 2, 3, 7, 3, 6, 1],
              [7, 6, 2, 3, 9, 1, 4, 5, 8],
              [3, 7, 1, 9, 5, 6, 8, 4, 2],
              [4, 9, 6, 1, 8, 2, 5, 7, 3],
-             [2, 8, 5, 4, 7, 3, 9, 1, 6]
+             [2, 8, 5, 4, 7, 3, 9, 1, 9]
              ]
     test2 = [[6, 2, 4, 5, 3, 9, 1, 8, 7],
              [5, 1, 9, 7, 2, 8, 6, 3, 4],
@@ -135,7 +97,7 @@ if __name__ == "__main__":
              [7, 6, 2, 3, 9, 1, 4, 5, 8],
              [3, 7, 1, 9, 5, 6, 8, 4, 2],
              [4, 9, 6, 1, 8, 2, 5, 7, 9],
-             [2, 8, 5, 4, 7, 3, 9, 1, 6]
+             [2, 8, 5, 4, 7, 3, 9, 1, 9]
              ]
 
     testcase = test1  # modify here for other testcases

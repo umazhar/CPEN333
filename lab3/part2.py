@@ -58,51 +58,16 @@ def checkSubgrid(puzzle: list, subgrid: int):
     """
     values = set()
 
-    if (subgrid == 0):
-        for i in range(0,3):
-            values.add(puzzle[0][i])
-            values.add(puzzle[1][i])
-            values.add(puzzle[2][i])
-    elif (subgrid == 1):
-        for i in range(3,6):
-            values.add(puzzle[0][i])
-            values.add(puzzle[1][i])
-            values.add(puzzle[2][i])
-    elif (subgrid == 2):
-        for i in range(6,9):
-            values.add(puzzle[0][i])
-            values.add(puzzle[1][i])
-            values.add(puzzle[2][i])
-    elif (subgrid == 3):
-        for i in range(0,3):
-            values.add(puzzle[3][i])
-            values.add(puzzle[4][i])
-            values.add(puzzle[5][i])
-    elif (subgrid == 4):
-        for i in range(3,6):
-            values.add(puzzle[3][i])
-            values.add(puzzle[4][i])
-            values.add(puzzle[5][i])
-    elif (subgrid == 5):
-        for i in range(6,9):
-            values.add(puzzle[3][i])
-            values.add(puzzle[4][i])
-            values.add(puzzle[5][i])
-    elif (subgrid == 6):
-        for i in range(0,3):
-            values.add(puzzle[6][i])
-            values.add(puzzle[7][i])
-            values.add(puzzle[8][i])
-    elif (subgrid == 7):
-        for i in range(3,6):
-            values.add(puzzle[6][i])
-            values.add(puzzle[7][i])
-            values.add(puzzle[8][i])
-    elif (subgrid == 8):
-        for i in range(6,9):
-            values.add(puzzle[6][i])
-            values.add(puzzle[7][i])
-            values.add(puzzle[8][i])
+    #finding coordinate of first cell in each subgrid
+    row_index = (subgrid//3)*3
+    col_index = (subgrid%3)*3
+
+    #adding all values in subgrid to set
+    for i in range(row_index,row_index+3):
+        for j in range(col_index, col_index+3):
+            values.add(puzzle[i][j])
+    
+    #checking if set is correct size
     if (len(values) != 9):
         print("Subgrid "+str(subgrid)+" not valid")
     else:
