@@ -1,5 +1,5 @@
-#student name:
-#student number:
+#student name:Umair Mazhar  
+#student number: 20333308
 
 from multiprocessing.dummy import Array
 import threading
@@ -60,20 +60,23 @@ if __name__ == "__main__":
     SortedFullList: list = []
     
     #to implement the rest of the code below, as specified 
-    thread0 = threading.Thread(target = sortingWorker, args = (True,))
-    thread1 = threading.Thread(target = sortingWorker, args = (False,))
-    thread2 = threading.Thread(target = mergingWorker)
+    firstHalfThread = threading.Thread(target = sortingWorker, args = (True,))
+    secondHalfThread = threading.Thread(target = sortingWorker, args = (False,))
+    mergeThread = threading.Thread(target = mergingWorker)
 
-    thread0.start()    
-    thread1.start()
+    #starting threads for each half of the list
+    firstHalfThread.start()    
+    secondHalfThread.start()
 
-    thread0.join()    
-    thread1.join()
+    #ending threads and joining 
+    firstHalfThread.join()    
+    secondHalfThread.join()
     
-    thread2.start()
+    #starting merge thread
+    mergeThread.start()
     #as a simple test, printing the final sorted list
     print("The final sorted list is ", SortedFullList)
-    thread2.join()
+    mergeThread.join()
     
 
 
