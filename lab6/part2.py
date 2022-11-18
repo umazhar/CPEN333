@@ -23,20 +23,23 @@ def philosopher(id: int, chopstick: list):
         leftChopstick = id
         rightChopstick = (id + 1) % 5      #5 is number of philosophers
 
-        if not id % 2: #right chopstick first
+        """
+        odd philosopher (if id%2 evaluates to true) will pick up left chopstick first and then right chopstick
+        even phlosopher will pick up right chopstick first and then left chopstick
+        """
+        
+        if id % 2: #odd philosophers
+            chopstick[leftChopstick].acquire()
+            print(f"DEBUG: philosopher{id} has chopstick{leftChopstick}")
+            chopstick[rightChopstick].acquire()
+            print(f"DEBUG: philosopher{id} has chopstick{rightChopstick}")
+        else: #even philosophers 
             chopstick[rightChopstick].acquire()
             print(f"DEBUG: philosopher{id} has chopstick{leftChopstick}")
             chopstick[leftChopstick].acquire()
             print(f"DEBUG: philosopher{id} has chopstick{rightChopstick}")
 
-        else: #left chopstick first
-            chopstick[leftChopstick].acquire() 
-            print(f"DEBUG: philosopher{id} has chopstick{leftChopstick}")
-            chopstick[rightChopstick].acquire()
-            print(f"DEBUG: philosopher{id} has chopstick{rightChopstick}")
-
-
-        eatForAWhile()
+        eatForAWhile() #use this line as is
 
         print(f"DEBUG: philosopher{id} is to release chopstick{rightChopstick}")
         chopstick[rightChopstick].release()
