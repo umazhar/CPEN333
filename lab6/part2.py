@@ -23,13 +23,20 @@ def philosopher(id: int, chopstick: list):
         leftChopstick = id
         rightChopstick = (id + 1) % 5      #5 is number of philosophers
 
-        #to simplify, try statement not used here
-        chopstick[leftChopstick].acquire()
-        print(f"DEBUG: philosopher{id} has chopstick{leftChopstick}")
-        chopstick[rightChopstick].acquire()
-        print(f"DEBUG: philosopher{id} has chopstick{rightChopstick}")
+        if not id % 2: #right chopstick first
+            chopstick[rightChopstick].acquire()
+            print(f"DEBUG: philosopher{id} has chopstick{leftChopstick}")
+            chopstick[leftChopstick].acquire()
+            print(f"DEBUG: philosopher{id} has chopstick{rightChopstick}")
 
-        eatForAWhile()  #use this line as is
+        else: #left chopstick first
+            chopstick[leftChopstick].acquire() 
+            print(f"DEBUG: philosopher{id} has chopstick{leftChopstick}")
+            chopstick[rightChopstick].acquire()
+            print(f"DEBUG: philosopher{id} has chopstick{rightChopstick}")
+
+
+        eatForAWhile()
 
         print(f"DEBUG: philosopher{id} is to release chopstick{rightChopstick}")
         chopstick[rightChopstick].release()

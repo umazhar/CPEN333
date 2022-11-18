@@ -24,17 +24,22 @@ def philosopher(id: int, chopstick: list):
         rightChopstick = (id + 1) % 5      #5 is number of philosophers
 
         #to simplify, try statement not used here
-        chopstick[leftChopstick].acquire()
-        print(f"DEBUG: philosopher{id} has chopstick{leftChopstick}")
-        chopstick[rightChopstick].acquire()
-        print(f"DEBUG: philosopher{id} has chopstick{rightChopstick}")
+        while True:
+            #checking if both left and right chopsticks are available, acquire if they are 
+            if (chopstick[leftChopstick].acquire(block = False)):
+                if (chopstick[rightChopstick].acquire(block = False)):
+                    print(f"DEBUG: philosopher{id} has chopstick{leftChopstick}")
+                    print(f"DEBUG: philosopher{id} has chopstick{rightChopstick}")
 
-        eatForAWhile()  #use this line as is
+                    eatForAWhile() #use this line as is
 
-        print(f"DEBUG: philosopher{id} is to release chopstick{rightChopstick}")
-        chopstick[rightChopstick].release()
-        print(f"DEBUG: philosopher{id} is to release chopstick{leftChopstick}")
-        chopstick[leftChopstick].release()
+                    print(f"DEBUG: philosopher{id} is to release chopstick{rightChopstick}")
+                    chopstick[rightChopstick].release()
+                    print(f"DEBUG: philosopher{id} is to release chopstick{leftChopstick}")
+                    chopstick[leftChopstick].release()
+                    break
+                else:
+                    chopstick[leftChopstick].release() #if right chopstick not available, release and try again
 
         thinkForAWhile()  #use this line as is
 
